@@ -1,4 +1,6 @@
 import os
+os.environ["PYROGRAM_DISABLE_SYNC"] = "1"  # <-- यह सबसे पहली लाइन होनी चाहिए
+import os
 import re
 import sys
 import time
@@ -628,7 +630,10 @@ async def main():
         logger.info("Starting bot...")
         await start_bot()
         logger.info("Bot is running...")
-        await asyncio.Future()  # Keep the bot running indefinitely
+        
+        # बोट को बिना क्रैश किए बैकग्राउंड में चालू रखने के लिए लूप
+        while True:
+            await asyncio.sleep(3600)
         
     except (KeyboardInterrupt, SystemExit):
         logger.info("Received shutdown signal")
